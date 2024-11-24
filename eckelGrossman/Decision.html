@@ -3,6 +3,7 @@
     table.table {
         width: 400px;
     }
+
     /* Ajoute un curseur pointer aux lignes du tableau */
     table.table tbody tr:hover, table.table tbody td:hover {
         cursor: pointer;
@@ -44,8 +45,8 @@ Eckel & Grossman - Décision
     <tr onclick="set_choice(this)">
         <td class="align-middle">{{ k }}</td>
         <td class="text-center">
-                50 % de chances de gagner {{ v.0|cu }} <br>
-                50 % de chances de gagner {{ v.1|cu }}
+            50 % de chances de gagner {{ v.0|cu }} <br>
+            50 % de chances de gagner {{ v.1|cu }}
         </td>
     </tr>
     {{ endfor }}
@@ -66,6 +67,16 @@ Eckel & Grossman - Décision
         if (js_vars.fill_auto)
             fill_auto();
     });
+
+    function fill_auto() {
+        const the_table = document.querySelector("table#loteries tbody");
+        let random_selection = Math.floor(Math.random() * the_table.rows.length);
+        the_table.rows[random_selection].click();
+        setTimeout(() => {
+            document.querySelector("form").submit();
+        }, 2000);
+
+    }
 
     function set_choice(clicked_row) {
         const row_index = clicked_row.rowIndex;
