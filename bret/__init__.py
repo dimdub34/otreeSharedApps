@@ -3,7 +3,10 @@ from pathlib import Path
 
 from otree.api import *
 
-doc = "BRET"
+doc = """
+BRET - Bomb Risk Elicitation Task <br>
+Crosetto, P., & Filippin, A. (2013). The "bomb" risk elicitation task. Journal of Risk and Uncertainty, 47(1), 31–65.
+"""
 app_name = Path(__file__).parent.name
 
 
