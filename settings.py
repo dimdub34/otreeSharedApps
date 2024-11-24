@@ -14,6 +14,7 @@ USE_POINTS = False
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00,
     participation_fee=0.00,
+    doc=""
 )
 
 SESSION_CONFIGS = [
@@ -35,5 +36,10 @@ SESSION_CONFIGS = [
         app_sequence=['eckelGrossman'],
         num_demo_participants=2,
     ),
-
+    dict(
+        name='svo',
+        display_name="Social Value Orientation (SVO)",
+        app_sequence=['svo'],
+        num_demo_participants=2,
+    ),
 ]
