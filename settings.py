@@ -19,11 +19,13 @@ SESSION_CONFIG_DEFAULTS = dict(
 SESSION_CONFIGS = [
     dict(
         name='bret',
+        display_name="Bomb Risk Elicitation Task (BRET)",
         app_sequence=['bret'],
         num_demo_participants=2,
     ),
     dict(
         name='nle',
+        display_name="Number Line Estimation (BRET)",
         app_sequence=['nle'],
         num_demo_participants=2,
     ),
