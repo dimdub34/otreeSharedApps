@@ -17,9 +17,9 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 SESSION_CONFIGS = [
-    # dict(
-    #     name='public_goods',
-    #     app_sequence=['public_goods'],
-    #     num_demo_participants=3,
-    # ),
+    dict(
+        name='bret',
+        app_sequence=['bret'],
+        num_demo_participants=2,
+    ),
 ]
