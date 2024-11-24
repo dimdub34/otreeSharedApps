@@ -8,7 +8,7 @@ app_name = Path(__file__).parent.name
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'cra4bret'
+    NAME_IN_URL = 'bret'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
