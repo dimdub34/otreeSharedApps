@@ -8,7 +8,9 @@ from otree.api import *
 app_name = Path(__file__).parent.name
 
 doc = """
-Number Line Estimation
+NEL - Number Line Estimation <br>
+Siegler, R. S., & Opfer, J. E. (2003). The development of numerical estimation: Evidence for multiple 
+representations of numerical quantity. Psychological Science, 14(3), 237-243.
 """
 
 
