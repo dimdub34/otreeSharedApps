@@ -1,0 +1,86 @@
+{{ block styles }}
+<style>
+    table.table {
+        width: 400px;
+    }
+    /* Ajoute un curseur pointer aux lignes du tableau */
+    table.table tbody tr:hover, table.table tbody td:hover {
+        cursor: pointer;
+    }
+</style>
+{{ endblock }}
+{{ block title }}
+Eckel & Grossman - Décision
+{{ endblock }}
+
+{{ block content }}
+<div class="card bg-light mb-3">
+    <div class="card-body">
+        <p class="mb-3">
+            Dans ce jeu, {{ C.NUM_LOTERIES }} loteries vous sont présentées.
+            A chaque loterie, vous avez 50 % de chances
+            de gagner le premier montant et 50 % de chances de gagner le second montant.
+            Par exemple
+            à la loterie 3 vous avez 50 % de chances de gagner {{ C.LOTERIES.3.0 | cu }} et
+            50 % de chances de gagner {{ C.LOTERIES.3.1 | cu }}. <br>
+            <strong>Vous devez sélectionner la loterie que vous préférez parmi les {{ C.NUM_LOTERIES }}.</strong
+        </p>
+        <p>
+            La loterie que vous aurez sélectionnée sera appliquée par le programme informatique. Ce dernier tirera
+            au sort un nombre compris entre 1 et 100. Si le nombre est inférieur ou égal à 50 vous gagnerez le premier
+            montant et s'il est supérieur à 50 vous gagnerez le second montant.
+        </p>
+    </div>
+</div>
+<table class="table table-sm mx-auto mb-3" id="loteries">
+    <thead>
+    <tr>
+        <th>N&deg;</th>
+        <th class="text-center">Loterie</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{ for k, v in C.LOTERIES.items }}
+    <tr onclick="set_choice(this)">
+        <td class="align-middle">{{ k }}</td>
+        <td class="text-center">
+                50 % de chances de gagner {{ v.0|cu }} <br>
+                50 % de chances de gagner {{ v.1|cu }}
+        </td>
+    </tr>
+    {{ endfor }}
+    </tbody>
+</table>
+
+{{ next_button }}
+
+<input type="hidden" value="" name="lottery_choice"></input>
+
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{static 'fill_auto.js' }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelector(".otree-btn-next").disabled = true;
+        if (js_vars.fill_auto)
+            fill_auto();
+    });
+
+    function set_choice(clicked_row) {
+        const row_index = clicked_row.rowIndex;
+        document.querySelectorAll("#loteries tbody tr").forEach((row) => {
+            if (row === clicked_row) {
+                row.classList.add("bg-info");
+                row.classList.add("fw-bold");
+            } else {
+                row.classList.remove("bg-info");
+                row.classList.remove("fw-bold");
+            }
+        });
+        console.log(row_index);
+        document.querySelector("input[name=lottery_choice]").value = row_index;
+        document.querySelector(".otree-btn-next").disabled = false;
+    }
+</script>
+{{ endblock }}

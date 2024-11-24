@@ -25,8 +25,14 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='nle',
-        display_name="Number Line Estimation (BRET)",
+        display_name="Number Line Estimation (NLE)",
         app_sequence=['nle'],
+        num_demo_participants=2,
+    ),
+    dict(
+        name='eckelGrossman',
+        display_name="Eckel & Grossman",
+        app_sequence=['eckelGrossman'],
         num_demo_participants=2,
     ),
 
