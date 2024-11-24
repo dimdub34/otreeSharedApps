@@ -1,0 +1,161 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'bart/style.css' }}" type="text/css" />
+{{ endblock }}
+
+{{ block title }}
+Balloon Analogue Risk Task
+{{ endblock }}
+
+{{ block content }}
+<div class="card bg-light mb-3">
+    <div class="card-body">
+        {{ include_sibling "InstructionsTemplate.html" }}
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-6 text-center">
+        <div class="card text-center mb-3">
+            <div class="card-body">
+                <p>
+                    Nombre d'injections: <strong><span id="nbinjections" class="text-info">0</span></strong>
+                </p>
+                <p>
+                    Cliquer ci-dessous pour augmenter/diminuer le nombre d'injections que vous envoyez dans le ballon
+                </p>
+                <div class="mb-3">
+                    <button type="button" class="btn btn-light" id="btn_moins" onclick="injecter(this);"
+                            onmousedown="start_injections(this)" onmouseup="stop_injections()">
+                        <img src="{{ static 'bart/moins.png' }}" style="width: 35px" alt="Moins"
+                             title="Dégonfler le ballon">
+                    </button>
+                    <button type="button" class="btn btn-light" id="btn_plus" onclick="injecter(this);"
+                            onmousedown="start_injections(this)" onmouseup="stop_injections()">
+                        <img src="{{ static 'bart/plus.png' }}" style="width: 35px" alt="Plus"
+                             title="Gonfler le ballon">
+                    </button>
+                </div>
+                <p>
+                    Gain si le ballon n'explose pas : <strong><span id="gain_max"
+                                                                    style="display: inline-block; width: 65px">--</span></strong><br>
+                    Gain si le ballon explose : <strong><span id="gain_explosion"
+                                                              style="display: inline-block; width: 65px">--</span></strong><br>
+                    Chances que le ballon explose : <strong><span id="proba_explosion"
+                                                                  style="display: inline-block; width: 65px">--</span></strong><br>
+                    <button class="btn btn-warning mt-3" type="button" id="btn_validate" onclick="valider();" disabled>
+                        Valider
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 text-center">
+        <p class="text-right">
+            <span id="compteur_injections" class="text-right circle bg-info" style="visibility: hidden">0</span>
+        </p>
+        <img src="{{ static 'bart/balloon.png' }}" width="120" height="120" style="bottom:0;" id="balloon"
+             alt="ballon"/>
+    </div>
+</div>
+
+<p id="result" class="mb-3 text-center font-weight-bold h5"></p>
+
+<input type="hidden" name="bart_decision" id="id_bart_decision" value="0">
+<input type="hidden" name="bart_explosion" id="id_bart_explosion" value="">
+<input type="hidden" name="bart_explosion_value" id="id_bart_explosion_value" value=""><br>
+
+{{ endblock }}
+
+{{ block scripts }}
+<script>
+    // selection des éléments nécessaires à chaque injection
+    const pump_input = document.querySelector("#id_bart_decision");
+    const balloon = document.querySelector("#balloon");
+    const nb_injections = document.querySelector("#nbinjections");
+    const proba_explosion = document.querySelector("#proba_explosion");
+    const gain_max = document.querySelector("#gain_max");
+    const gain_explosion = document.querySelector("#gain_explosion");
+    const btn_moins = document.querySelector("#btn_moins");
+    const btn_plus = document.querySelector("#btn_plus");
+    const btn_validate = document.querySelector("#btn_validate");
+
+    let current_pump = 0;
+    let interval_injections;
+    const max_pumps = parseInt(js_vars.max_pumps);
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === "F5" || e.key === "r") {
+            e.preventDefault();
+        }
+    });
+
+    function injecter(source) {
+        if (btn_validate.disabled) btn_validate.disabled = false;
+
+        let adjustment = source === btn_moins ? -1 : 1;  // Determine adjustment direction
+        let new_pump = current_pump + adjustment;
+
+        if (new_pump >= 0 && new_pump <= max_pumps) {
+            current_pump = new_pump;
+            balloon.width += adjustment * 2;  // Adjust balloon size
+            balloon.height += adjustment * 2;
+
+            pump_input.value = current_pump;
+            nb_injections.innerHTML = String(current_pump);
+            proba_explosion.innerHTML = ((current_pump / max_pumps) * 100).toFixed(2) + "%";
+            gain_max.innerHTML = (current_pump * js_vars.payoff_per_pump).toFixed(2) + "€";
+            gain_explosion.innerHTML = "0.00€";
+        }
+    }
+
+    function start_injections(source) {
+        interval_injections = setInterval(() => injecter(source), 125);
+    }
+
+    function stop_injections() {
+        clearInterval(interval_injections);
+    }
+
+    function valider() {
+        // on désactive les boutons
+        btn_validate.disabled = true;
+        btn_plus.disabled = true;
+        btn_moins.disabled = true;
+
+        // on enregistre le choix et détermine si explosion
+        let p_result = document.querySelector("#result");
+        let nb_explosion = Math.floor(Math.random() * max_pumps) + 1;
+        document.querySelector("#id_bart_explosion_value").value = nb_explosion;
+        document.querySelector("#id_bart_explosion").value = current_pump <= nb_explosion ? "False" : "True";
+
+        // calcul du gain et affichage du résultat
+        if (current_pump <= nb_explosion) {
+            let gain = current_pump * js_vars.payoff_per_pump;
+            p_result.innerHTML = `Le ballon n'a pas explosé. Votre gain est de ${gain.toFixed(2)}€.`;
+            p_result.classList.add("text-success");
+        } else {
+            balloon.src = "{{ static 'bart/explosion.png' }}";
+            p_result.innerHTML = `Le ballon a explosé au bout de ${nb_explosion} injection${nb_explosion > 1 ? "s" : ""}. Votre gain est de 0.00€.`;
+            p_result.classList.add("text-danger");
+        }
+
+        setTimeout(() => document.querySelector("form").submit(), 5000);
+    }
+
+
+    function fill_auto() {
+        let nb_clicks = Math.floor(Math.random() * max_pumps);
+        for (let i = 0; i < nb_clicks; i++)
+            btn_plus.click()
+        btn_validate.click();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (js_vars.fill_auto)
+            fill_auto();
+
+    });
+
+</script>
+{{ endblock }}

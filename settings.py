@@ -42,4 +42,11 @@ SESSION_CONFIGS = [
         app_sequence=['svo'],
         num_demo_participants=2,
     ),
+    dict(
+        name='bart',
+        display_name="Balloon Analogue Risk Task (BART)",
+        app_sequence=['bart'],
+        num_demo_participants=2,
+    ),
+
 ]

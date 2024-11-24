@@ -1,0 +1,23 @@
+<p>
+    Dans ce jeu, vous devez décider du nombre d'injections d'air que vous envoyez dans un ballon.
+    Initialement le ballon est dégonflé. Chaque injection d'air vous fait gagner
+    {{ C.PAYOFF_PER_PUMP|cu }}, donc plus le ballon est gonflé plus vous gagnez d'argent,
+    sauf si le ballon explose, dans ce cas vous perdez tout.</p>
+<p>
+    Le ballon supporte au maximum {{ C.MAX_PUMPS }} injections, mais il peut exploser à n'importe quelle
+    injection : 1<sup>ère</sup>, 2<sup>ème</sup>, ..., {{ C.MAX_PUMPS }}<sup>ème</sup>. <br>
+    Concrètement, le programme informatique choisit au hasard un nombre compris entre 1 et {{ C.MAX_PUMPS }}, ce nombre
+    détermine l'injection à laquelle le ballon explose. Chaque nombre a la même chance d'être tiré au sort.
+</p>
+<p>
+    Pour fixer le nombre d'injections d'air que vous souhaitez envoyer dans le ballon, vous devez utiliser les boutons
+    <img src="{{ static 'bart/plus.png' }}" style="width: 20px" alt="Plus" title="Gonfler le ballon">
+    et
+    <img src="{{ static 'bart/moins.png' }}" style="width: 20px" alt="Moins" title="Dégonfler le ballon">.
+    <i>Vous pouvez cliquer sur les boutons ou les maintenir appuyer.</i>
+</p>
+<p class="card-text">
+    Une fois votre décision prise, cliquez sur le bouton <em>Valider</em>. Vous verrez alors si le ballon explose ou
+    non. Si le ballon explose votre gain est de {{ 0|cu }}, sinon vous gagnez {{ C.PAYOFF_PER_PUMP |cu }} par
+    injection.
+</p>
