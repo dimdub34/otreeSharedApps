@@ -148,7 +148,7 @@ Balloon Analogue Risk Task
         let nb_clicks = Math.floor(Math.random() * max_pumps);
         for (let i = 0; i < nb_clicks; i++)
             btn_plus.click()
-        btn_validate.click();
+        setTimeout(() => {btn_validate.click();}, 2000);
     }
 
     document.addEventListener("DOMContentLoaded", () => {

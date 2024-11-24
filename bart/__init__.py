@@ -57,6 +57,7 @@ class Decision(Page):
     @staticmethod
     def js_vars(player: Player):
         return dict(
+            fill_auto=player.session.config.get("fill_auto", False),
             payoff_per_pump=C.PAYOFF_PER_PUMP,
             max_pumps=C.MAX_PUMPS
         )
