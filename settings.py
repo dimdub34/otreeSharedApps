@@ -22,4 +22,10 @@ SESSION_CONFIGS = [
         app_sequence=['bret'],
         num_demo_participants=2,
     ),
+    dict(
+        name='nle',
+        app_sequence=['nle'],
+        num_demo_participants=2,
+    ),
+
 ]
