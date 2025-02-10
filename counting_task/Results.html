@@ -1,0 +1,28 @@
+{{ block title }}
+    Résultat
+{{ endblock }}
+
+{{ block content }}
+<div class="text-end mb-3">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal_content">
+        Instructions
+    </button>
+</div>
+
+<div class="card bg-light mb-3">
+    <div class="card-body">
+        <p>
+            {{ participant.vars.counting_task.txt_final }}
+        </p>
+    </div>
+</div>
+
+{{ if player.num_successful_counting > C.REQUIRED_SUCCESS }}
+    {{ next_button }}
+{{ endif }}
+
+{{ include_sibling "InstructionsModal.html" }}
+
+{{ endblock }}
+
+

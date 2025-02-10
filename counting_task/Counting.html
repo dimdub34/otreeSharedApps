@@ -1,0 +1,83 @@
+ {{ block styles }}
+<style>
+    input[type=number] {
+        width: 100px;
+    }
+</style>
+{{ endblock }}
+
+{{ block content }}
+
+<div class="text-end mb-3">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal_content">
+        Instructions
+    </button>
+</div>
+
+<h3>Comptez le nombre d'occurrences du chiffre <span id="target-number" class="text-info"></span> dans la grille</h3>
+<p class="fst-italic mb-3">(Saisissez votre réponse sous la grille)</p>
+
+<p>Nombre de grilles validées : <span id="validated_grids" class="text-success fw-bold fs-5">0</span></p>
+
+<div id="grid" style="display: grid; grid-template-columns: repeat(10, 40px); gap: 5px;"></div>
+
+<input type="number" id="user-input" min="0" class="form-control mb-2" style="margin-top: 10px;"/>
+<button id="validate-btn" type="button" class="btn btn-secondary mb-2">Valider</button>
+<p id="feedback" class="form-control-errors"></p>
+
+{{ include_sibling "InstructionsModal.html" }}
+
+<input type="hidden" name="num_successful_counting" id="num_successful_counting" value="0">
+
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'fill_auto.js' }}"></script>
+<script>
+    let countCorrect = 0;
+    let targetNumber = Math.floor(Math.random() * 10);
+    let gridSize = js_vars.grid_size
+    let currentNumbers;
+
+    function generateGrid() {
+        let grid = document.getElementById("grid");
+        grid.innerHTML = "";
+        let numbers = [];
+        for (let i = 0; i < gridSize * gridSize; i++) {
+            let num = Math.floor(Math.random() * 10);
+            numbers.push(num);
+            let cell = document.createElement("div");
+            cell.innerText = num;
+            cell.style = "width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid black;";
+            grid.appendChild(cell);
+        }
+        return numbers;
+    }
+
+    document.getElementById("validate-btn").addEventListener("click", function () {
+        let userCount = parseInt(document.getElementById("user-input").value);
+        let correctCount = currentNumbers.filter(n => n === targetNumber).length;
+        let feedback = document.getElementById("feedback");
+
+        if (userCount === correctCount) {
+            countCorrect++;
+            document.getElementById("num_successful_counting").value = countCorrect;
+            document.getElementById("validated_grids").innerHTML = countCorrect;
+            targetNumber = Math.floor(Math.random() * 10);
+            document.getElementById("target-number").innerText = targetNumber;
+            currentNumbers = generateGrid();
+            document.getElementById("user-input").value = "";
+            feedback.innerText = "";
+        } else {
+            feedback.innerText = "Mauvaise réponse, essayez encore.";
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        currentNumbers = generateGrid();
+        document.getElementById("target-number").innerText = targetNumber;
+        if (js_vars.fill_auto)
+            fill_auto();
+    });
+</script>
+{{ endblock }}
