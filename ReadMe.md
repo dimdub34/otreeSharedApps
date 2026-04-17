@@ -94,6 +94,26 @@ Siegler, R. S., & Opfer, J. E. (2003). The development of numerical estimation: 
 
 ---
 
+### **Public Goods**
+
+This repository provides an oTree implementation of a repeated Public Goods Game, a core paradigm in experimental
+economics to study cooperation in groups.
+Participants decide how many tokens to keep in their private account versus contribute to a collective account, with
+returns determined by a marginal per capita return (MPCR) and optional threshold rules.
+
+📄 **Reference**:
+
+Ledyard, J. O. (1995). Public Goods: A Survey of Experimental Research.
+In J. H. Kagel & A. E. Roth (Eds.), The Handbook of Experimental Economics, Princeton University Press.
+
+🔍 **Key Findings**:
+
+- Contributions are typically above the free-riding prediction in early rounds, then often decline over time.
+- Communication opportunities can increase cooperation and sustain higher contribution levels.
+- Group-level incentives (e.g., MPCR and thresholds) strongly affect contribution behavior.
+
+---
+
 ### **SVO: Social Value Orientation**
 
 This repository provides an oTree implementation of the Social Value Orientation (SVO) Task, a widely used tool in 
@@ -130,3 +150,4 @@ Gill, D., & Prowse, V. (2012). A Structural Analysis of Disappointment Aversion 
 - Used to measure effort exertion in economic experiments.
 - Provides a real-effort task that is incentive-compatible and easy to implement.
 - Can be used in tournaments, individual effort settings, and team-based designs.
+
