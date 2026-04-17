@@ -1,0 +1,102 @@
+{{ block title }}
+Questionnaire
+{{ endblock }}
+
+{{ block styles }}
+<style>
+    /* Figer l'en-tête de la table au défilement */
+    .sticky-header th {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 10;
+        box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+        padding: 15px 5px;
+    }
+
+    /* Harmoniser la largeur des colonnes de réponses */
+    .col-choice {
+        width: 8%;
+        text-align: center;
+    }
+
+    /* Style pour les labels de questions */
+    .question-text {
+        font-size: 0.95rem;
+        vertical-align: middle !important;
+    }
+
+    /* Améliorer le confort visuel sur les lignes */
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    /* Cacher les labels natifs oTree à l'intérieur du tableau */
+    .table .form-check-label {
+        display: none;
+    }
+</style>
+{{ endblock }}
+
+{{ block content }}
+
+<div class="card bg-light mb-4 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">Consignes</h5>
+        <p class="card-text">
+            Veuillez lire chaque énoncé et décider à quel point vous êtes d'accord ou en désaccord avec son contenu.
+            <br>
+            Sélectionnez le chiffre approprié sur l'échelle suivante :
+        </p>
+        <div class="d-flex justify-content-between px-5 text-muted small">
+            <span>1 = Pas du tout d'accord</span>
+            <span>2 = Pas d'accord</span>
+            <span>3 = Neutre (ni d'accord, ni en désaccord)</span>
+            <span>4 = d'accord</span>
+            <span>5 = Tout à fait d'accord</span>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <table class="table table-hover mb-0">
+        <thead class="sticky-header">
+        <tr>
+            <th class="border-top-0">Énoncé</th>
+            <th class="col-choice border-top-0">1</th>
+            <th class="col-choice border-top-0">2</th>
+            <th class="col-choice border-top-0">3</th>
+            <th class="col-choice border-top-0">4</th>
+            <th class="col-choice border-top-0">5</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ for field in form }}
+        <tr>
+            <td class="question-text">{{ field.label }}
+            </td>
+            {{ for choice in field }}
+            <td class="col-choice">{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+        {{ endfor }}
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-end mb-5">
+    {{ next_button }}
+</div>
+
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/js/fill_auto.js' }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof js_vars !== 'undefined' && js_vars.fill_auto) {
+            fill_auto();
+        }
+    });
+</script>
+{{ endblock }}

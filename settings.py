@@ -1,3 +1,4 @@
+from math import nan
 from os import environ
 
 ADMIN_USERNAME = 'admin'
@@ -20,6 +21,18 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 SESSION_CONFIGS = [
+    dict(
+        name="machTest",
+        display_name="Match IV Test",
+        app_sequence=["machTest"],
+        num_demo_participants=2,
+    ),
+    dict(
+        name="hexaco",
+        display_name="Hexaco",
+        app_sequence=["hexaco"],
+        num_demo_participants=2,
+    ),
     dict(
         name="public_goods",
         display_name="Public Goods",
