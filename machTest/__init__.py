@@ -93,7 +93,7 @@ class MachPage(Page):
     def before_next_page(player: Player, timeout_happened):
         if timeout_happened:
             for i in range(1, C.NUM_QUESTIONS + 1):
-                setattr(player, f'mach_{i}', random.randint(1, 6))
+                setattr(player, f'mach_{i}', random.randint(1, 5))
         player.set_mach_score()
 
 

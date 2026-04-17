@@ -22,6 +22,12 @@ SESSION_CONFIG_DEFAULTS = dict(
 
 SESSION_CONFIGS = [
     dict(
+        name="darkTriadTest",
+        display_name="Short Dark Triad Test",
+        app_sequence=["darkTriadTest"],
+        num_demo_participants=2,
+    ),
+    dict(
         name="machTest",
         display_name="Match IV Test",
         app_sequence=["machTest"],
