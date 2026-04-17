@@ -21,6 +21,12 @@ SESSION_CONFIG_DEFAULTS = dict(
 
 SESSION_CONFIGS = [
     dict(
+        name="public_goods",
+        display_name="Public Goods",
+        app_sequence=["public_goods"],
+        num_demo_participants=4,
+    ),
+    dict(
         name="counting_task",
         display_name="Counting Task",
         app_sequence=["counting_task"],

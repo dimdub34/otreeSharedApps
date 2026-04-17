@@ -1,0 +1,25 @@
+    <h6 class="text-muted text-uppercase fw-bold mb-3 ">Historique</h6>
+    <table class="table table-history">
+        <thead class="thead-light">
+        <tr>
+            <th>Période</th>
+            <th>Compte individuel</th>
+            <th>Compte collectif</th>
+            <th>Total<br>compte collectif</th>
+            <th class="text-end">Gain</th>
+            <th class="text-end">Gain cumulé</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ for p in historique }}
+        <tr {{ if p.round_number == player.round_number }}class="table-active fw-bold"{{ endif }}>
+            <td>{{ p.round_number }}</td>
+            <td>{{ p.private_account }}</td>
+            <td>{{ p.public_account }}</td>
+            <td>{{ p.total_public_account }}</td>
+            <td class="text-end"><span class="text-success fw-bold">{{ p.payoff|to2 }} <small>ECU</small></span></td>
+            <td class="text-end"><span class="text-success fw-bold">{{ p.cumulative_payoff|to2 }} <small>ECU</small></span></td>
+        </tr>
+        {{ endfor }}
+        </tbody>
+    </table>

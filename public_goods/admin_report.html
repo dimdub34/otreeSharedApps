@@ -1,0 +1,52 @@
+<h4 class="mb-4">Contributions totales par groupe</h4>
+<div id="groups_evol" class="mb-5" style="height: 500px;"></div>
+
+<h4 class="mt-5 mb-4">Contributions individuelles par groupe</h4>
+<div id="indiv_area" class="row g-4 mt-2 mb-5"></div>
+
+<script src="{{ static 'public_goods/highcharts.js' }}"></script>
+<script src="{{ static 'public_goods/charts_config.js' }}"></script>
+<script>
+    const infos_graph = {{ infos_graph|json }};
+    const NUM_ROUNDS = infos_graph.num_rounds;
+    const MAX_ENDOWMENT = infos_graph.max_endowment;
+
+    const cfg = ChartsConfig;
+
+    const seriesData = infos_graph.groups_data.map((group, idx) => ({
+        name: `Groupe ${idx + 1}`,
+        data: group.total_group,
+        lineWidth: 2,
+    }));
+
+    Highcharts.chart('groups_evol', {
+        ...cfg.common,
+        ...cfg.totalGroupChart,
+        yAxis: cfg.axes.yAxis(MAX_ENDOWMENT),
+        xAxis: cfg.axes.xAxis(NUM_ROUNDS),
+        series: seriesData,
+    });
+
+    const indivArea = document.querySelector('#indiv_area');
+    infos_graph.groups_data.forEach((group, groupIdx) => {
+        const divFig = document.createElement('div');
+        divFig.id = `fig_g${groupIdx}`;
+        divFig.classList.add('col-12', 'col-lg-6');
+        indivArea.appendChild(divFig);
+
+        const playerSeries = group.individual_contrib.map((contrib, playerIdx) => ({
+            name: `Joueur ${playerIdx + 1}`,
+            data: contrib,
+            lineWidth: 2,
+        }));
+
+        Highcharts.chart(`fig_g${groupIdx}`, {
+            ...cfg.common,
+            ...cfg.individualChart,
+            title: {text: `Groupe ${groupIdx + 1}`},
+            yAxis: cfg.axes.yAxis(20),
+            xAxis: cfg.axes.xAxis(NUM_ROUNDS),
+            series: playerSeries,
+        });
+    });
+</script>

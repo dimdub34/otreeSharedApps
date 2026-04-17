@@ -1,0 +1,66 @@
+{{ block styles }}
+<link rel="stylesheet" href="{{ static 'global/css/style.css' }}">
+<link rel="stylesheet" href="{{ static 'public_goods/style.css' }}">
+{{ endblock }}
+
+{{ block title }}
+<span class="text-muted">Résultats</span>
+{{ endblock }}
+
+{{ block content }}
+
+<div class="d-flex justify-content-between mb-3">
+    <p>Période {{ player.round_number }} sur {{ C.NUM_ROUNDS }}</p>
+    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal_content">
+        <i class="bi bi-info-circle"></i> Instructions
+    </button>
+</div>
+
+<div class="alert alert-info mb-3">
+    <p>
+        Vous avez placé {{ player.private_account }} jetons sur votre compte individuel, et {{ player.public_account }}
+        jetons sur le compte collectif. <br>
+        Au total, votre groupe a placé {{ group.total_public_account }} jetons sur le
+        compte collectif.
+        {{ if subsession.display_contributions_individuelles }}
+        <br>
+        {{ contributions_others_txt }}
+        {{ endif }}
+        {{ if group.total_public_account < subsession.seuil }}
+        <br>
+        Le nombre total de jetons placés par votre groupe dans le compte collectif n'a pas atteint le seuil minimal
+        de {{ subsession.seuil }} jetons donc il n'y a aucun gain issu du compte collectif. <br>
+        <span class="fw-bold"> Votre gain pour la période est égal à {{ player.payoff_ecu|to2 }} ECU.</span>
+        {{ else }}
+        <br>
+        <span class="fw-bold">
+        Votre gain pour la période est égal à {{ player.private_account }} + {{ group.total_public_account }} x
+        {{ subsession.mpcr }} = {{ player.payoff_ecu|to2 }} ECU.
+            </span>
+        {{ endif }}
+    </p>
+
+</div>
+
+{{ next_button }}
+
+<div class="mt-5 border-top pt-4">
+    {{ include_sibling "HistoriqueTemplate.html" }}
+</div>
+
+{{ include "global/instructions_modal.html" }}
+
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/js/fill_auto.js' }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if (js_vars?.fill_auto)
+            fill_auto();
+    });
+</script>
+{{ endblock }}
+
+
+
