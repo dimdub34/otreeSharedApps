@@ -134,6 +134,63 @@ Judgment and Decision Making, 6(8), 771–781.
 
 ---
 
+### **Mach IV Test**
+
+This repository provides an oTree implementation of the Mach IV Test, a classic instrument developed to assess
+Machiavellianism as a personality trait.
+Participants respond to statements about manipulation, morality, and interpersonal trust, producing a global score of
+Machiavellian orientation.
+
+📄 **Reference**:
+
+Christie, R., & Geis, F. (1970). Studies in Machiavellianism. Academic Press.
+
+🔍 **Key Findings**:
+
+- Higher Machiavellianism is associated with more strategic and manipulative social behavior.
+- The scale is widely used to study distrust, cynical beliefs, and instrumental decision-making.
+- In behavioral settings, Mach scores are often linked to lower cooperation and stronger self-interest.
+
+---
+
+### **HEXACO Personality Inventory**
+
+This repository provides an oTree implementation of the HEXACO personality framework, measuring six broad dimensions:
+Honesty-Humility, Emotionality, eXtraversion, Agreeableness, Conscientiousness, and Openness to Experience.
+The questionnaire is used to profile socio-behavioral tendencies and connect personality to experimental choices.
+
+📄 **Reference**:
+
+Lee, K., & Ashton, M. C. (2004). Psychometric Properties of the HEXACO Personality Inventory.
+Multivariate Behavioral Research, 39(2), 329-358.
+
+🔍 **Key Findings**:
+
+- The Honesty-Humility factor improves prediction of unethical and exploitative behavior.
+- HEXACO dimensions are informative for cooperation, prosociality, and conflict styles.
+- The model provides a robust alternative to Big Five-based personality measurement.
+
+---
+
+### **Short Dark Triad Test (SD3)**
+
+This repository provides an oTree implementation of the Short Dark Triad (SD3), a brief measure of Machiavellianism,
+narcissism, and psychopathy.
+Participants answer 27 items and obtain separate subscale scores for each dark trait dimension.
+
+📄 **Reference**:
+
+Jones, D. N., & Paulhus, D. L. (2014). Introducing the Short Dark Triad (SD3): A Brief Measure of Dark Personality Traits.
+Assessment, 21(1), 28-41.
+
+🔍 **Key Findings**:
+
+- The SD3 captures three distinct but related socially aversive personality traits.
+- Machiavellianism, narcissism, and psychopathy predict different forms of competitive and exploitative behavior.
+- The short format is practical for experiments while preserving good psychometric quality.
+
+---
+
 ## Slider Task
 
 This repository provides an oTree implementation of the Slider Task, originally developed by Gill & Prowse (2012) 
@@ -151,3 +208,4 @@ Gill, D., & Prowse, V. (2012). A Structural Analysis of Disappointment Aversion 
 - Provides a real-effort task that is incentive-compatible and easy to implement.
 - Can be used in tournaments, individual effort settings, and team-based designs.
 
+--- 
